@@ -6,3 +6,11 @@
 public/
 jsconfig.json
 node_modules/
+.Rproj.user
+
+# R stuff
+.Rdata
+.Rhistory
+
+# OS stuff
+.DS_Store
