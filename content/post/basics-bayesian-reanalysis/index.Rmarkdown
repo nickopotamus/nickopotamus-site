@@ -3,7 +3,7 @@
 
 title: "A Bayesian reanalysis of the BaSICS trial"
 subtitle: ""
-summary: ""
+summary: "Short version: saline is still evil"
 authors: []
 tags: []
 categories: []
