@@ -36,11 +36,11 @@ projects: []
 
 Then along came BaSICS. Aiming to randomise 11,000 critically ill patients to medical brine vs a balanced solution (in this case, [Plasma-Lyte 148](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5109922/), beloved of neurointensivists), it reported recently [via alifestream on the amazing Critical Care Reviews website](https://criticalcarereviews.com/livestream/basics) that there was no difference between mortality rates, or rates of acute kidney injury requiring renal replacement therapy, between the two (p = 0.47). Cue the "balanced crystalloids are pointless" [editorials](https://rebelem.com/the-basics-trial-balanced-solution-vs-0-9-saline-solution-in-critically-ill-patients/)...
 
-Hmmm. A yes/no answer supported by [an arbitrary p-value](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0174). Sounds like an excuse for yet more [Bayesian statistics](/post/bayesian-statistics-for-doctors/) chat.
+Hmmm. A yes/no answer supported by [an arbitrary p-value](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0174)? Sounds like an excuse for yet more [Bayesian statistics](/post/bayesian-statistics-for-doctors/) chat.
 
 ![We don't do that here](/post/basics-bayesian-reanalysis/do_that.gif)
 
-A couple of months ago Arthur Albuquerque, a medical student and Bayesian stats wizard, published a [fantastic Bayesian renalaysis](https://www.medrxiv.org/content/10.1101/2021.06.15.21258966v1) of the [RECOVERY trial's toilizumab results](https://www.recoverytrial.net/results/tocilizumab-results), so we'll borrow his code and do the same thing for BaSICS. For simplicity, we'll simply look at mortality in all patients, but AKI and/or subgroup analysis would be performed the same way.
+A couple of months ago [Arthur Albuquerque](https://twitter.com/arthur_alb1), a medical student and Bayesian stats wizard, published a [fantastic Bayesian renalaysis](https://www.medrxiv.org/content/10.1101/2021.06.15.21258966v1) of the [RECOVERY trial's toilizumab results](https://www.recoverytrial.net/results/tocilizumab-results), so we'll borrow his code and do the same thing for BaSICS. For simplicity, we'll simply look at mortality in all patients, but AKI and/or subgroup analysis would be performed the same way.
 
 ## Get some data
 
@@ -48,12 +48,10 @@ We'll start with importing packages we need:
 
 ```{r setup, message = FALSE}
 library(tidyverse)  # Data wrangling and plotting
-library(here)       # To find file paths within R project
 library(janitor)    # To change quickly change names of columns
 library(metafor)    # To create priors from meta-analysis
 library(ggdist)     # To plot distributions
 library(patchwork)  # To arrange plots
-library(gt)         # To create nice tables
 library(kableExtra) # To create nice tables
 ```
 
@@ -61,7 +59,7 @@ We'll borrow the data from [Hammond et al's excellent pre-BaSICS meta-analysis](
 
 ```{r get_data, message = FALSE,  warning=FALSE}
 d = read_csv("extracted-data.csv")
-d = clean_names(d) # to change the names of columns
+d = clean_names(d) 
 ```
 ```{r table_data, echo=FALSE, message = FALSE,  warning=FALSE}
 d %>% 
@@ -71,9 +69,11 @@ d %>%
   kable_styling()
 ```
 
-## Calculate posterior distributions
+## Calculate distributions
 
-First step in Bayesianing this up is working out the posterior distribution - what does BaSICS tell us, and all the other trials that Hammond analyses, tell us in isolation.
+First step in Bayesian-ing this up is working out the posterior distributions (what do BaSICS tell us, and all the other trials that Hammond analyses, tell us in isolation) and the prior distributions (what did we think before BaSICS).
+
+Lets start with working out the odds ratio for both BaSICS, and everything else combined:
 
 ```{r posterior_distributions, message = FALSE}
 # Log(odds ratio) for BASICS
@@ -119,7 +119,14 @@ logOR_prior_mortality =
   )
 ```
 
-We also need to build the prior distributions - what we knew (or thought) before BaSICS was on the scene. As in the Albuquerque, we'll use a number of priors to determine the strength of the outcomes after BaSICS - the "evidence based prior" (i.e. what we think after Hammond's summary of the evidence), an "optimistic" prior (what the authors were hoping for, which was a 10% reduction in the odds ratio`[^1]`{=markdown}), a "pessimistic" prior (so the opposite of the optimistic, that balanced crystalloids cause harm), and a skeptical (no difference, but same variance as the evidence-based prior) and non-informative (no information at all) prior. To do this we'll re-use Albuquerque's scripts,  [available from Github](https://github.com/arthur-albuquerque/tocilizumab_reanalysis/tree/master/final_analyses/script), modified for our ORs:
+So now we build a range of prior distributions - what we knew (or thought) before BaSICS was on the scene. As in the Albuquerque paper, we'll use a number of priors to determine the strength of the outcomes after BaSICS. These include:
+
+* The "evidence based prior" (i.e. what we think after Hammond's summary of the evidence)
+* An "optimistic" prior (what the authors were hoping for, which was a 10% reduction in the odds ratio`[^1]`{=markdown})
+* A "pessimistic" prior (so the opposite of the optimistic, that balanced crystalloids cause harm)
+* A skeptical (no difference, but same variance as the evidence-based prior) and non-informative (no information at all) prior. 
+
+To do this we'll re-use Albuquerque's scripts,  [available from Github](https://github.com/arthur-albuquerque/tocilizumab_reanalysis/tree/master/final_analyses/script), modified for our ORs:
 
 `[^1]:`{=markdown} Technically the hazard ratio, but it's close to 1 so we can assume HR ~ OR.
 
@@ -134,7 +141,7 @@ source("logOR_normal_approximation_multiple_priors.R")
 source("tibble_all_posteriors_logOR.R") 
 ```
 
-Now we can build our prior distributions:
+Now we can build our prior distributions, and calculate the posterior distributions from applying the results of BaSICS to each of these:
 
 ```{r build_priors, message=FALSE, warning=FALSE, results=FALSE}
 # Build evidence-based priors
@@ -151,7 +158,7 @@ posteriors_mortality = logOR_normal_approximation_multiple_priors(
     posteriors_mortality # Name for the final output with data+prior+posterior
   )
 
-# Calculate OR for posterior distribution 
+# Calculate OR for posterior distributions based on the priors 
 samples_logOR_posteriors_mortality = 
   tibble_all_posteriors_logOR(posteriors_mortality)
 
@@ -169,7 +176,7 @@ posteriors_mortality %>% kable(format = "markdown") %>%  kable_styling()
 
 ## Visualise some results
 
-So what does all this mean? Remember that a Bayesian analysis is taking your prior beliefs (in this case, either the evidnece based belief from the Hammond paper, or the pre-specified other priors), and applying the likelihood from the new results (BaSICS) to update your posterior beliefs. Let's visualise this.
+So what does all this mean? Remember that a Bayesian analysis is taking your prior beliefs (in this case, either the evidence based belief from the Hammond paper, or the pre-specified other priors), and applying the likelihood from the new results (BaSICS) to update your posterior beliefs. Let's visualise this.
 
 Firstly, we'll extract the priors...
 
@@ -340,13 +347,15 @@ plot1 <- distributions %>%
 plot1
 ```
 
+## What does it all mean?
+
 So how do we interpret this? 
 
 The probability distribution (probability of the real value, given the data available) is shown as a bell curve. The 95% [credible interval](https://en.wikipedia.org/wiki/Credible_interval) (kind of like the 95% confidence interval, but in this case actually giving you the probability of the real value, rather than the range of values given the null hypothesis) is shown as the dark line. 
 
 The prior, pink, shows the range of potential odds ratios given the pre-existing evidence base. The likelihood of the true odds ratio from the BaSICS data is in green, and the posterior distribution (the prior, updated by the new data) is in red, seeming to show that BaSICS in fact confirmed our pre-existing suspicions that balanced crystalloids are better.
 
-But what is we think the evidence base on which BaSICS was designed is flawed? Well, we can compare the effect of different priors (again, ggplot code skipped):
+But what is we think the evidence base on which BaSICS was designed is flawed? Well, we can compare the effect of different priors (again, ggplot code skipped, but available on Github):
 
 ```{r build_priors_plot, echo=FALSE}
 or_mortality = samples_posteriors_mortality %>% 
@@ -413,9 +422,9 @@ plot2 <- or_mortality %>%
 plot2
 ```
 
-Holding the results of BaSICS in isolation (non-informative and skeptical priors) seems to show no real benefit to be seen, although the probability does lean towards balanced solutions being beneficial - more data needed. However, using the evidence-based prior (based on what we knew before BaSICS), BaSICS actually narrows down the credible interval, providing *more* evidence that balanced crystalloids confer a survival benefit, and the same finding is seen given an optimistic prior (that the BaSCIS investigators powered their study around) - so based on this, BaSICS again supports the use of balanced crystalloids. 
+Holding the results of BaSICS in isolation (non-informative and skeptical priors) seems to show no conclusive benefit to using balanced crystalloids, although the probability does lean towards balanced solutions being beneficial - more data needed. However, using the evidence-based prior (based on what we knew before BaSICS), BaSICS actually narrows down the credible interval, providing *more* evidence that balanced crystalloids confer a survival benefit, and the same finding is seen given an optimistic prior (that the BaSCIS investigators powered their study around). So based on these, BaSICS again supports the use of balanced crystalloids.
 
-In light of this then, all BaSICS has done is helped narrow down what we already knew - balanced crystalloids are probably better for the critically unwell. This then feeds into [the other criticisms of the paper](https://www.thebottomline.org.uk/summaries/icm/basics/) (high number of elective - and hence "well critically unwell" patients, low numbers of septic patients, etc to suggest that actually this isn't the fluids debate paper to end all fluids debates paper that Twitter seems to think it is.
+In light of this then, what BaSICS has done is helped narrow down what we already knew - balanced crystalloids are (probably) better for the critically unwell. This then feeds into [the other criticisms of the paper](https://www.thebottomline.org.uk/summaries/icm/basics/) (high number of elective - and hence "well critically unwell" patients, low numbers of septic patients, etc) to suggest that actually that although a great paper, especially given the number of patients collected in the middle of a COVID-19 pandemic, this isn't the fluids debate paper to end all fluids debates paper that Twitter seems to think it is.
 
 ## One last thing...
 
