@@ -1,0 +1,13 @@
+﻿trial,outcome,events-balanced,total-balanced,events-control,total-control
+Annane 2013,mortality,22,72,275,1035
+Semler 2017,mortality,72,520,68,454
+Semler 2018,mortality,928,7942,975,7860
+Verma 2016,mortality,5,33,2,34
+Young 2014,mortality,3,32,4,33
+Young 2015,mortality,87,1152,95,1110
+Semler 2017,aki,97,520,87,454
+Semler 2018,aki,807,7942,858,7860
+Verma 2016,aki,9,32,6,33
+Young 2015,aki,102,1067,94,1025
+Zampieri 2021,mortality,1381,5230,1439,5290
+Zampieri 2021,aki,393,5218,427,5287
