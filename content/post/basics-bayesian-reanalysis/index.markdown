@@ -1,7 +1,7 @@
 ---
 # Documentation: https://wowchemy.com/docs/managing-content/
 
-title: "Basics Bayesian Reanalysis"
+title: "A Bayesian reanalysis of the BaSICS trial"
 subtitle: ""
 summary: ""
 authors: []
@@ -243,11 +243,11 @@ distributions = bind_cols(
 
 … which we can then plot (ggplot faffing skipped for brevity):
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/plot_one-1.png" width="480" style="display: block; margin: auto;" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/plot_one-1.png" width="960" style="display: block; margin: auto;" />
 
 Finally, we can compare the effect of different priors (again, ggplot code skipped):
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/plot_priors_plot-1.png" width="480" style="display: block; margin: auto;" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/plot_priors_plot-1.png" width="960" style="display: block; margin: auto;" />
 
 So how do you interpret this? The posterior distribution (probabilty of the real value) is the bell curve, and there’s one for each prior. The 95% [credible interval](https://en.wikipedia.org/wiki/Credible_interval) (kind of like the 95% confidence interval, but in this case actually giving you the probability of the real value, rather than the value given the null hypothesis) is shown as the dark line.
 

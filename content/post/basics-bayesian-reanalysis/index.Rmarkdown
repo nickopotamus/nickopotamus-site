@@ -1,7 +1,7 @@
 ---
 # Documentation: https://wowchemy.com/docs/managing-content/
 
-title: "Basics Bayesian Reanalysis"
+title: "A Bayesian reanalysis of the BaSICS trial"
 subtitle: ""
 summary: ""
 authors: []
@@ -335,7 +335,7 @@ plot1 <- distributions %>%
                 right = unit(20, 'cm'),
                 top = unit(2.3, 'cm'))
 ```
-```{r plot_one, echo=FALSE, fig.align='center', fig.width=5, fig.height = 3}
+```{r plot_one, echo=FALSE, fig.align='center', fig.width=10, fig.height = 4}
 plot1
 ```
 
@@ -402,7 +402,7 @@ plot2 <- or_mortality %>%
                   right = unit(23, 'cm'),
                   top = unit(2.3, 'cm'))
 ```
-```{r plot_priors_plot, echo=FALSE, fig.align='center', fig.width=5, fig.height = 3}
+```{r plot_priors_plot, echo=FALSE, fig.align='center', fig.width=10, fig.height = 4}
 plot2
 ```
 
