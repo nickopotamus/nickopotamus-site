@@ -40,7 +40,7 @@ CUDA (Compute Unified Device Architecture) is a specific set of drivers for the 
 To do so, visit the [CUDA toolkit download page](https://developer.nvidia.com/cuda-downloads) and work through the tick boxes to select out version (of follow [this shortcut](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_network), but I can't guarantee how long it'll work for):
 ![CUDA options](/post/tensorflow-gpu-ubuntu-20-04/cuda_selection.png)
 
-This should result in you being offered something similar to the below, which you should follow. Great opportunity for a cup of coffee while it downloads.
+This should result in you being offered something similar to the below, which you should follow, **except for the final line which I've changed**. Using ```sudo apt-get -y install cuda``` as suggested by Nvidia will install the latest and greatest CUDA, 11.4. Unfortunately (at the time of writing) [Tensorflow 2.6 is only compatible with CUDA 11.2](https://www.tensorflow.org/install/source#gpu), so instead you need to specify the earlier version to be installed:
 
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
@@ -48,19 +48,19 @@ sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 sudo apt-get update
-sudo apt-get -y install cuda
+sudo apt-get -y install cuda-11-2
 ```
 
-For those of you on a slower internet connection, you may be tempted to download the local ```.deb``` installer instead; if you do, just remember to remove the local apt repository that it creates, otherwise it breaks all future Nvidia related updates. I mention this from bitter experience!
+Now is a great opportunity for a cup of coffee while it downloads. You may be tempted to download the local ```.deb``` installer instead; if you do, just remember to remove the local apt repository that it creates, otherwise it breaks all future Nvidia related updates. I mention this from bitter experience!
 
 ## Step 3: Install cuDNN
 
-CUDA Deep Neural Network (cuDNN) is a library used for further optimizing neural network computations, using the CUDA API. Again, this involves installing the right version, but also [registering for a (free) Nvidia developers account to get hold of it](https://developer.nvidia.com/cudnn). Once signed up, and agreeing to practice only ethical AI, you need to select the version that works with our CUDA (currently CUDA 11.4) and for our version of Linux (cuDDN Library for Linux (x86_64), [currently downloadable from this link](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.4/11.4_20210831/cudnn-11.4-linux-x64-v8.2.4.15.tgz)).
+CUDA Deep Neural Network (cuDNN) is a library used for further optimizing neural network computations, using the CUDA API. Again, this involves installing the right version, but also [registering for a (free) Nvidia developers account to get hold of it](https://developer.nvidia.com/cudnn). Once signed up, and agreeing to practice only ethical AI, you need to select the version that works with our CUDA (currently CUDA 11.**2**, see above). This means looking through the Archived cuDNN releases for the most recently supported version [cuDNN SDK 8.1.0 for CUDA 11.2](https://www.tensorflow.org/install/gpu) for our version of Linux (cuDDN Library for Linux (x86_64)), which is [currently downloadable from this link](https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.1.0.77/11.2_20210127/cudnn-11.2-linux-x64-v8.1.0.77.tgz).
 
-Once you've got it, head to the Downloads folder, and extract the tarball before copying files into our CUDA installation (replace ```cudnn-11.4-linux-x64-v8.2.4.15.tgz``` with whatever you've just downloaded):
+Sit tight, or go for another coffee. Once you've got it, head to the Downloads folder, and extract the tarball before copying files into our CUDA installation (replace ```cudnn-11.2-linux-x64-v8.1.0.77.tgz``` with whatever you've just downloaded):
 
 ```
-tar xvf cudnn-11.4-linux-x64-v8.2.4.15.tgz
+tar xvf cudnn-11.2-linux-x64-v8.1.0.77.tgz
 sudo cp -P cuda/lib64/* /usr/local/cuda/lib64/
 sudo cp cuda/include/* /usr/local/cuda/include/
 ```
