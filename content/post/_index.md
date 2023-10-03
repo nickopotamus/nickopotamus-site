@@ -1,6 +1,5 @@
 ---
-title: Posts
-cms_exclude: true
+title: Blog posts
 
 # View.
 #   1 = List
@@ -10,6 +9,6 @@ view: 2
 
 # Optional header image (relative to `static/media/` folder).
 header:
-  caption: ''
-  image: ''
+  caption: ""
+  image: ""
 ---

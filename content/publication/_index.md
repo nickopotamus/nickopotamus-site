@@ -1,6 +1,5 @@
 ---
 title: Publications
-cms_exclude: true
 
 # View.
 #   1 = List
@@ -10,7 +9,7 @@ cms_exclude: true
 view: 4
 
 # Optional header image (relative to `static/media/` folder).
-banner:
-  caption: ''
-  image: ''
+header:
+  caption: ""
+  image: ""
 ---
