@@ -31,7 +31,10 @@ projects: []
 
 [BaSICS](https://jamanetwork.com/journals/jama/fullarticle/2783039) was kind of a big deal earlier this month. You may have [read about it on Twitter](https://twitter.com/search?q=%23basics%20fluid&src=typed_query&f=live) when all the excitement was being live-streamed…
 
-![I’m kinda a big deal](/post/basics-bayesian-reanalysis/big_deal.gif)
+<figure>
+<img src="big_deal.gif" alt="I’m kinda a big deal" />
+<figcaption aria-hidden="true">I’m kinda a big deal</figcaption>
+</figure>
 
 [The choice of which fluid to use and when](https://www.youtube.com/watch?v=mUFouvB9Fa4) is an argument that intensivists love, and [combining multiple studies](https://doi.org/10.1177%2F1060028019866420) seemed to suggest that using balanced crystalloids (fluids which more closely mimic the composition of blood plasma) have better outcomes in critically unwell adults than the “old faithful” of 0.9% sodium chloride ([“abnormal” saline](https://www.nature.com/articles/s41581-018-0008-4)), which has a high chloride load ([and hence is acidotic](https://emcrit.org/wp-content/uploads/2016/05/27140683_-Stewart-Acid-Base_-A-Simplified-Bedside-Approach.pdf)) and lacks any potassium, calcium, or other electrolytes.
 
@@ -39,7 +42,10 @@ Then along came BaSICS. Aiming to randomise 11,000 critically ill patients to me
 
 Hmmm. A yes/no answer supported by [an arbitrary p-value](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0174)? Sounds like an excuse for yet more [Bayesian statistics](/post/bayesian-statistics-for-doctors/) chat.
 
-![We don’t do that here](/post/basics-bayesian-reanalysis/do_that.gif)
+<figure>
+<img src="do_that.gif" alt="We don’t do that here" />
+<figcaption aria-hidden="true">We don’t do that here</figcaption>
+</figure>
 
 A couple of months ago [Arthur Albuquerque](https://twitter.com/arthur_alb1), a medical student and Bayesian stats wizard, published a [fantastic Bayesian renalaysis](https://www.medrxiv.org/content/10.1101/2021.06.15.21258966v1) of the [RECOVERY trial’s toilizumab results](https://www.recoverytrial.net/results/tocilizumab-results), so we’ll borrow his code and do the same thing for BaSICS. For simplicity, we’ll simply look at mortality in all patients, but AKI and/or subgroup analysis would be performed the same way.
 
@@ -63,15 +69,15 @@ d = read_csv("extracted-data.csv")
 d = clean_names(d) 
 ```
 
-| trial         | events\_balanced | total\_balanced | events\_control | total\_control |
-|:--------------|-----------------:|----------------:|----------------:|---------------:|
-| Annane 2013   |               22 |              72 |             275 |           1035 |
-| Semler 2017   |               72 |             520 |              68 |            454 |
-| Semler 2018   |              928 |            7942 |             975 |           7860 |
-| Verma 2016    |                5 |              33 |               2 |             34 |
-| Young 2014    |                3 |              32 |               4 |             33 |
-| Young 2015    |               87 |            1152 |              95 |           1110 |
-| Zampieri 2021 |             1381 |            5230 |            1439 |           5290 |
+| trial         | events_balanced | total_balanced | events_control | total_control |
+|:--------------|----------------:|---------------:|---------------:|--------------:|
+| Annane 2013   |              22 |             72 |            275 |          1035 |
+| Semler 2017   |              72 |            520 |             68 |           454 |
+| Semler 2018   |             928 |           7942 |            975 |          7860 |
+| Verma 2016    |               5 |             33 |              2 |            34 |
+| Young 2014    |               3 |             32 |              4 |            33 |
+| Young 2015    |              87 |           1152 |             95 |          1110 |
+| Zampieri 2021 |            1381 |           5230 |           1439 |          5290 |
 
 ## Calculate distributions
 
@@ -125,14 +131,14 @@ logOR_prior_mortality =
 
 So now we build a range of prior distributions - what we knew (or thought) before BaSICS was on the scene. As in the Albuquerque paper, we’ll use a number of priors to determine the strength of the outcomes after BaSICS. These include:
 
--   The “evidence based prior” (i.e. what we think after Hammond’s summary of the evidence)
--   An “optimistic” prior (what the authors were hoping for, which was a 10% reduction in the odds ratio[^1])
--   A “pessimistic” prior (so the opposite of the optimistic, that balanced crystalloids cause harm)
--   A skeptical (no difference, but same variance as the evidence-based prior) and non-informative (no information at all) prior.
+- The “evidence based prior” (i.e. what we think after Hammond’s summary of the evidence)
+- An “optimistic” prior (what the authors were hoping for, which was a 10% reduction in the odds ratio[^1])
+- A “pessimistic” prior (so the opposite of the optimistic, that balanced crystalloids cause harm)
+- A skeptical (no difference, but same variance as the evidence-based prior) and non-informative (no information at all) prior.
 
 To do this we’ll re-use Albuquerque’s scripts, [available from Github](https://github.com/arthur-albuquerque/tocilizumab_reanalysis/tree/master/final_analyses/script), modified for our ORs:
 
-[^1]: Technically the hazard ratio, but it’s close to 1 so we can assume HR \~ OR.
+[^1]: Technically the hazard ratio, but it’s close to 1 so we can assume HR ~ OR.
 
 ``` r
 # Normal conjugate posterior probabilities
@@ -251,6 +257,12 @@ The probability distribution (probability of the real value, given the data avai
 The prior, pink, shows the range of potential odds ratios given the pre-existing evidence base. The likelihood of the true odds ratio from the BaSICS data is in green, and the posterior distribution (the prior, updated by the new data) is in red, seeming to show that BaSICS in fact confirmed our pre-existing suspicions that balanced crystalloids are better.
 
 But what is we think the evidence base on which BaSICS was designed is flawed? Well, we can compare the effect of different priors (again, ggplot code skipped, but available on Github):
+
+    ## Warning: `stat(x < 1)` was deprecated in ggplot2 3.4.0.
+    ## ℹ Please use `after_stat(x < 1)` instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/plot_priors_plot-1.png" width="960" style="display: block; margin: auto;" />
 
