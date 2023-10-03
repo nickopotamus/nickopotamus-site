@@ -30,7 +30,7 @@ projects: []
 ---
 [BaSICS](https://jamanetwork.com/journals/jama/fullarticle/2783039) was kind of a big deal earlier this month. You may have [read about it on Twitter](https://twitter.com/search?q=%23basics%20fluid&src=typed_query&f=live) when all the excitement was being live-streamed...
 
-![I'm kinda a big deal](/post/basics-bayesian-reanalysis/big_deal.gif)
+![I'm kinda a big deal](big_deal.gif)
 
 [The choice of which fluid to use and when](https://www.youtube.com/watch?v=mUFouvB9Fa4) is an argument that intensivists love, and [combining multiple studies](https://doi.org/10.1177%2F1060028019866420) seemed to suggest that using balanced crystalloids (fluids which more closely mimic the composition of blood plasma) have better outcomes in critically unwell adults than the "old faithful" of 0.9% sodium chloride (["abnormal" saline](https://www.nature.com/articles/s41581-018-0008-4)), which has a high chloride load ([and hence is acidotic](https://emcrit.org/wp-content/uploads/2016/05/27140683_-Stewart-Acid-Base_-A-Simplified-Bedside-Approach.pdf)) and lacks any potassium, calcium, or other electrolytes. 
 
@@ -38,7 +38,7 @@ Then along came BaSICS. Aiming to randomise 11,000 critically ill patients to me
 
 Hmmm. A yes/no answer supported by [an arbitrary p-value](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0174)? Sounds like an excuse for yet more [Bayesian statistics](/post/bayesian-statistics-for-doctors/) chat.
 
-![We don't do that here](/post/basics-bayesian-reanalysis/do_that.gif)
+![We don't do that here](do_that.gif)
 
 A couple of months ago [Arthur Albuquerque](https://twitter.com/arthur_alb1), a medical student and Bayesian stats wizard, published a [fantastic Bayesian renalaysis](https://www.medrxiv.org/content/10.1101/2021.06.15.21258966v1) of the [RECOVERY trial's toilizumab results](https://www.recoverytrial.net/results/tocilizumab-results), so we'll borrow his code and do the same thing for BaSICS. For simplicity, we'll simply look at mortality in all patients, but AKI and/or subgroup analysis would be performed the same way.
 

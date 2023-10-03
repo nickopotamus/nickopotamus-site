@@ -1,0 +1,26 @@
+{
+    "id": "75F205D3",
+    "path": "~/GitHub/nickopotamus-site/content/post/basics-bayesian-reanalysis/index.Rmarkdown",
+    "project_path": "content/post/basics-bayesian-reanalysis/index.Rmarkdown",
+    "type": "r_markdown",
+    "hash": "3106912244",
+    "contents": "",
+    "dirty": false,
+    "created": 1696323459461.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "40,25",
+        "scrollLine": "37"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1696323583,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1696323583190,
+    "read_only": false,
+    "read_only_alternatives": []
+}
