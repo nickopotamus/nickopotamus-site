@@ -39,6 +39,7 @@ We want to find `\(P(C_R ∣ D)\)` i.e., the probability that the coin is rigged
 `$$P(C_R ∣ D) = \frac{P(D | C_R) P(C_R)}{P(D)}$$`
 
 Where:
+
 -   `\(P(D | C_R)\)` is the probability of getting 10 heads if the coin is rigged (i.e. 1)
 -   `\(P(C_R)\)` the probability the coin is rigged before any data is known (1/10,000)
 -   `\(P(D)\)` the marginal probability of getting 10 heads.
@@ -47,7 +48,7 @@ This last one is a bit more complex to work out, as it's all the ways we can get
 
 `$$P(D)=P(D∣C_R) P(C_R) +P (D∣C_F) P(C_F)$$`
 
-i.e. the probability of getting it if the coin is rigged times the probability that the coin is rigged, plus the probability of getting if if the coin is fair ($\left \frac{1}{2} \right ^ 2 = 1/1024$) times the probability that the coin is fair (9,999/10,000).
+i.e. the probability of getting it if the coin is rigged times the probability that the coin is rigged, plus the probability of getting if if the coin is fair ( `\(\left( \frac{1}{2} \right) ^ 2 = 1/1024\)` ) times the probability that the coin is fair (9,999/10,000).
 
 So sticking all these numbers together gives us:
 
@@ -81,7 +82,7 @@ To answer that we need to find the number of consecutive heads `\(n\)` such that
 
 $$ \frac{P(D_n|C_R) P(C_R)}{P(D_n|C_F) P(C_F)} > 1$$
 
-Since `\(P(D_n|C_R)\)` is always 1, and `\(P(D_n|C_F) = \left \frac{1}{2} \right ^ n\)`, this simplifies down to `\(9999 \times \left \frac{1}{2} \right ^ n <1\)` i.e. `\(n > \frac{log(9999)}{log(2)} > 13.3\)`. So if you get any more than 14 heads, this suggests the coin is *probably* rigged.
+Since `\(P(D_n|C_R)\)` is always 1, and `\(P(D_n|C_F) = \left( \frac{1}{2} \right) ^ n\)`, this simplifies down to `\(9999 \times \left( \frac{1}{2} \right) ^ n <1\)` i.e. `\(n > \frac{log(9999)}{log(2)} > 13.3\)`. So if you get any more than 14 heads, this suggests the coin is *probably* rigged.
 
 What this demonstrates is how Bayesian thinking works - we update our *prior* probabilities with *new data* to generate *posterior* probabilities. Every time we flip another heads, the posterior likelihood of the coin becoming rigged becomes slightly higher - let's demonstrate this graphically with a simulations:
 
