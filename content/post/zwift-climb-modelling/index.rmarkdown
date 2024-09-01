@@ -27,7 +27,7 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
-[Racing](https://www.bikeradar.com/advice/fitness-and-training/zwift-racing) on the [virtual cycling platform *Zwift*](https://www.zwift.com) is a great way to ~~imagine you're Tadej Pogacar~~ test your fitness in a sociable yet competative way. And everybody knows that the finest racing series on Zwift is [Dirt Racing Series](https://www.dirtracingseries.com/2024/02/21/dirt-racing-series-season-8/).
+[Racing](https://www.bikeradar.com/advice/fitness-and-training/zwift-racing) on the [virtual cycling platform *Zwift*](https://www.zwift.com) is a great way to ~~imagine you're Tadej Pogacar~~ test your fitness in a sociable yet competitive way. And everybody knows that the finest racing series on Zwift is [Dirt Racing Series](https://www.dirtracingseries.com/2024/02/21/dirt-racing-series-season-8/).
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(tidymodels)
