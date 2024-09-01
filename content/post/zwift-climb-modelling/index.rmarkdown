@@ -29,7 +29,7 @@ projects: []
 ---
 [Racing](https://www.bikeradar.com/advice/fitness-and-training/zwift-racing) on the [virtual cycling platform *Zwift*](https://www.zwift.com) is a great way to ~~imagine you're Tadej Pogacar~~ test your fitness in a sociable yet competative way. And everybody knows that the finest racing series on Zwift is [Dirt Racing Series](https://www.dirtracingseries.com/2024/02/21/dirt-racing-series-season-8/).
 
-```{r setup, echo = FALSE, message = FALSE, warnings = FALSE}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(tidymodels)
 load("achterbahn_graphs.RData")
 ```
@@ -93,7 +93,7 @@ Well, lets get *really nerdy* to answer this.
 
 We can also pull [power curves](https://www.highnorth.co.uk/articles/power-profiling-cycling) from ZwiftPower, which reflects the maximum power a rider can lay down for a given length of time. Lets do that now, for everyone in the pen:
 
-```{r echo=FALSE, message=FALSE, warnings = FALSE}
+```{r echo=FALSE, message=FALSE, warning = FALSE}
 power_plot
 ```
 
@@ -129,7 +129,7 @@ seg_time_plot
 
 To answer the second, we can look at the difference between what we predicted would happen before the race and what actually happened. As you can see below, there's a fair few people who went harder than anticipated from their 90 day power profile, and were correspondingly faster (by up to 2 seconds, but every point counts). There were also a few who put down less effort than anticipated, but on the whole we were within a 0.25W/kg and less than 2s either way for the field.
 
-```{r echo=FALSE, message=FALSE, warnings = FALSE}
+```{r echo=FALSE, message=FALSE, warning = FALSE}
 time_pred_plot
 ```
 

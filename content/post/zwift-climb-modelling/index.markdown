@@ -30,61 +30,6 @@ projects: []
 [Racing](https://www.bikeradar.com/advice/fitness-and-training/zwift-racing) on the [virtual cycling platform *Zwift*](https://www.zwift.com) is a great way to ~~imagine you're Tadej Pogacar~~ test your fitness in a sociable yet competative way. And everybody knows that the finest racing series on Zwift is [Dirt Racing Series](https://www.dirtracingseries.com/2024/02/21/dirt-racing-series-season-8/).
 
 
-```
-## Warning: package 'tidymodels' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'broom' was built under R version 4.3.3
-```
-
-```
-## Warning: package 'dials' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'infer' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'modeldata' was built under R version 4.3.3
-```
-
-```
-## Warning: package 'parsnip' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'recipes' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'rsample' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'tidyr' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'tune' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'workflows' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'workflowsets' was built under R version 4.3.2
-```
-
-```
-## Warning: package 'yardstick' was built under R version 4.3.2
-```
 
 EDIT September 2024 - Sadly DRS is no more, seemingly a victim of it's own popularity :(
 
@@ -162,12 +107,6 @@ Well, lets get *really nerdy* to answer this.
 
 We can also pull [power curves](https://www.highnorth.co.uk/articles/power-profiling-cycling) from ZwiftPower, which reflects the maximum power a rider can lay down for a given length of time. Lets do that now, for everyone in the pen:
 
-
-```
-## Warning: Removed 20 rows containing missing values or values outside the scale range
-## (`geom_line()`).
-```
-
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 Note that there's a fair range of abilities at the left (short effort, i.e. sprints) but the spread is a bit closer in the 15 to 45 minute range that this climb is going to take (dashed lines). 
@@ -193,12 +132,6 @@ The first of these is simple - plot actual results vs the range of results that 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 To answer the second, we can look at the difference between what we predicted would happen before the race and what actually happened. As you can see below, there's a fair few people who went harder than anticipated from their 90 day power profile, and were correspondingly faster (by up to 2 seconds, but every point counts). There were also a few who put down less effort than anticipated, but on the whole we were within a 0.25W/kg and less than 2s either way for the field.
-
-
-```
-## Warning: Removed 2 rows containing missing values or values outside the scale range
-## (`geom_point()`).
-```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
