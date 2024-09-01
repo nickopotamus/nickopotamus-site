@@ -1,26 +1,35 @@
 ---
+# Documentation: https://wowchemy.com/docs/managing-content/
+
 title: "Modelling climbing performance in Zwift racing"
-subtitle: Because the only thing geekier than racing cartoon bicycles in the garage
-  is doing stats about it
-date: "2024-04-18T17:55:38Z"
-output: pdf_document
-tags: []
+subtitle: "Because the only thing geekier than racing cartoon bicycles in the garage is doing stats about it"
+summary: "Because the only thing geekier than racing cartoon bicycles in the garage is doing stats about it"
+authors: []
+tags: ["zwift", "data science", "r"]
 categories: []
-summary: Because the only thing geekier than racing cartoon bicycles in the garage
-  is doing stats about it
-lastmod: "2024-04-18T17:55:38Z"
+date: "2024-04-18T17:55:38Z"
+lastmod: 2024-09-30T12:03:54Z
 featured: false
 draft: false
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
-  caption: ''
-  focal_point: ''
+  caption: ""
+  focal_point: "Smart"
   preview_only: false
+
+# Projects (optional).
+#   Associate this post with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
+#   Otherwise, set `projects = []`.
 projects: []
-authors: []
 ---
 [Racing](https://www.bikeradar.com/advice/fitness-and-training/zwift-racing) on the [virtual cycling platform *Zwift*](https://www.zwift.com) is a great way to ~~imagine you're Tadej Pogacar~~ test your fitness in a sociable yet competative way. And everybody knows that the finest racing series on Zwift is [Dirt Racing Series](https://www.dirtracingseries.com/2024/02/21/dirt-racing-series-season-8/).
 
-```{r echo=FALSE, message=FALSE}
+```{r setup, echo = FALSE, message = FALSE}
 library(tidymodels)
 load("achterbahn_graphs.RData")
 ```
@@ -48,7 +57,7 @@ data_for_plot <- segment_data_tv %>%
     wkg = power/weight,
     ln_wkg = log(wkg),
     ln_t   = log(as.numeric(elapsed))
-    
+    )
 
 data_for_analysis <- data_for_plot %>% 
   # Assume everyone less <2.0 is not trying, and everyone >5.0 is superhuman
