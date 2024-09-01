@@ -38,11 +38,16 @@ We want to find `\(P(C_R ∣ D)\)` i.e., the probability that the coin is rigged
 
 `$$P(C_R ∣ D) = \frac{P(D | C_R) P(C_R)}{P(D)}$$`
 
-Where `\(P(D | C_R)\)` is the propability of getting 10 heads if the coin is rigged (i.e. 1), `\(P(C_R)\)` the probability the coin is rigged before any data is known (1/10,000), and `\(P(D)\)` the marginal probabilty of getting 10 heads. This is a bit more complex to work out, as it's all the ways we can get 10 heads:
+Where:
+-   `\(P(D | C_R)\)` is the probability of getting 10 heads if the coin is rigged (i.e. 1)
+-   `\(P(C_R)\)` the probability the coin is rigged before any data is known (1/10,000)
+-   `\(P(D)\)` the marginal probability of getting 10 heads.
+
+This last one is a bit more complex to work out, as it's all the ways we can get 10 heads:
 
 `$$P(D)=P(D∣C_R) P(C_R) +P (D∣C_F) P(C_F)$$`
 
-i.e. the probability of getting it if the coin is rigged times the probaility that the coin is rigged, and the probability of getting if if the coin is fair ($=\left \frac{1}{2} \right ^ 2 = 1/1024$) times the probability that the coin is fair (9,999/10,000).
+i.e. the probability of getting it if the coin is rigged times the probability that the coin is rigged, plus the probability of getting if if the coin is fair ($\left \frac{1}{2} \right ^ 2 = 1/1024$) times the probability that the coin is fair (9,999/10,000).
 
 So sticking all these numbers together gives us:
 
@@ -66,13 +71,13 @@ P_Cr_D * 100 # Value in percent
 ## [1] 9.289667
 ```
 
-So the coin only has a 9% chance of being rigged. Was this what you intuitively thought?
+Despite the ten heads, the coin only has a 9% chance of being rigged given the sheer number of unrigged coins. Was this what you intuitively thought?
 
 ## How many flips does it take?
 
-The follow up question then is - how many flips do we need to be sure? If not sure, "[on the balance of probabilities](https://www.gov.uk/government/publications/balance-of-probabilities/balance-of-probabilities-accessible)"?
+The follow up question then is - how many flips do we need to be sure? Well, not sure, but "[on the balance of probabilities](https://www.gov.uk/government/publications/balance-of-probabilities/balance-of-probabilities-accessible)" we think that the coin is rigged?
 
-Well, we need to find the number of consecutive heads `\(n\)` such that `\(P(C_R|D_n) > P(C_F|D_n)\)`. We can do this by expanding the inequality:
+To answer that we need to find the number of consecutive heads `\(n\)` such that `\(P(C_R|D_n) > P(C_F|D_n)\)`. We can do this by expanding the inequality:
 
 $$ \frac{P(D_n|C_R) P(C_R)}{P(D_n|C_F) P(C_F)} > 1$$
 
