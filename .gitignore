@@ -12,3 +12,7 @@ go.sum
 .Rproj.user
 .DS_Store
 Thumbs.db
+.RData
+.Rhistory
+*.pper
+/.Rproj.user
